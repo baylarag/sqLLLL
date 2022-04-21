@@ -1,0 +1,90 @@
+create DATABASE restaurant
+use restaurant
+
+create table Product(
+    Id int  PRIMARY key IDENTITY(10,1),
+    Name Nvarchar (30) not null,
+    Price DECIMAL not NULL,
+    Cookingtime int not NULL
+)
+Create table category(
+    id int PRIMARY key IDENTITY(20,1),
+    Name NVARCHAR (30) not null,
+
+)
+Create table Menu(
+     Id int primary key IDENTITY(30,1),
+     Name NVARCHAR(20) Not Null,
+     Categoryid int Foreign key REFERENCES category (id),
+     ProductId INT FOREIGN key REFERENCES product(id),
+)
+CREATE table [order](
+    Id int PRIMARY key IDENTITY(40,1),
+    Ispaid bit not Null,
+    CREATEDate Date not null
+)
+Create table [ProductOrder](
+    Id int primary key IDENTITY(50,1),
+    OrderId int FOREIGN key REFERENCES [order](id),
+    ProductId int foreign key REFERENCES product(id)
+)
+CREATE table Reciept(
+    Id int PRIMARY KEY identity(60,1),
+    Total decimal not null,
+    CREATEDate Date not null
+
+)
+insert into product
+VALUES('Hamburger',2,8), 
+       ('Cheeseburger',1,7),
+       ('Margarita',6,10),
+       ('Fish soup',3,3),
+       ('Tiramisu',4,2),
+       ('Fanta',1,1)
+
+Insert into category
+VALUES('Burger'),
+      ('Pizza'),
+      ('soup'),
+      ('Dinks'),
+      ('Deserts')
+select * from category
+select * from product  
+select* from menu
+
+insert into Menu
+values('HOT',22,13),
+      ('Fastfood',20,10),
+      ('Fastfood',20,11),
+      ('Fastfood',21,12),
+      ('Drink',23,15),
+      ('sweets',24,14)
+
+
+      select
+      m.name as[Menu Name],
+      p.name as[Product Name],
+      Cookingtime ,
+      c.name as[category name]
+
+
+       from menu m
+       
+      join product p on p.id=m.ProductId
+      join category c on c.id=m.Categoryid
+
+      insert into [order]
+      Values (0,GETDATE()),(0,GETDATE())
+      select*from [Product]
+insert into ProductOrder
+values(40,10),
+       (41,12),
+       (41,14),
+       (40,15),
+       (41,11)
+
+
+       select sum(p.Price)from[Order]o
+       join ProductOrder po on po.OrderID=O.Id
+       Join Product P on p.Id=po.ProductId
+       where Id =40
